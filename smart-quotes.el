@@ -1,10 +1,11 @@
 ;;; smart-quotes.el --- Smart Quotes minor mode for GNU Emacs
 
 ;; Copyright (C) 2007-2011 Gareth Rees
+;; Copyright (C) 2011 Reuben Thomas
 
-;; Author: Gareth Rees <gareth.rees@pobox.com>
+;; Author: Gareth Rees <gdr@garethrees.org>
 ;; Created: 2007-10-20
-;; Version: 1.0
+;; Version: 1.1
 ;; Keywords: abbrev
 
 ;; Smart Quotes mode is free software; you can redistribute it and/or
@@ -14,16 +15,33 @@
 
 ;;; Commentary:
 
-;; In Smart Quotes minor mode, the ' and \" keys insert left and
+;; In Smart Quotes minor mode, the ' and " keys insert left and
 ;; right quotation marks according to the context around point.
 
 ;;; Code:
 
-(defcustom smart-quotes-left-context "^\\|\\s-\\|\\s("
+(defgroup smart-quotes nil
+  "Minor mode for inserting left and right quotes."
+  :group 'editing)
+
+;;;###autoload
+(defcustom smart-quotes-mode nil
+  "Toggle smart-quotes-mode.
+Setting this variable directly does not take effect;
+use either \\[customize] or the function `smart-quotes-mode'."
+  :set 'custom-set-minor-mode
+  :initialize 'custom-initialize-default
+  :version "1.2"
+  :type 'boolean
+  :group 'smart-quotes
+  :require 'smart-quotes)
+
+(defcustom smart-quotes-left-context "^\\|\\s-\\|\\s(\\|[‘“]"
   "Regular expression matching the context in which a left
 quotation mark will be inserted (a right quotation mark will
 be inserted in all other contexts)."
-  :type 'regexp)
+  :type 'regexp
+  :group 'smart-quotes)
 
 (defun smart-quotes-insert-single ()
   "Insert U+2018 LEFT SINGLE QUOTATION MARK if point is preceded
@@ -39,6 +57,7 @@ otherwise."
   (interactive)
   (ucs-insert (if (looking-back smart-quotes-left-context) #x201C #x201D)))
 
+;;;###autoload
 (define-minor-mode smart-quotes-mode
   "Toggle Smart Quotes mode in the current buffer.
 With argument ARG, turn Smart Quotes mode on iff ARG is positive.
@@ -49,5 +68,17 @@ marks if point is preceded by text matching the option
                           (decode-char 'ucs #x201D)))
   :keymap '(("'" . smart-quotes-insert-single)
             ("\"" . smart-quotes-insert-double)))
+
+;;;###autoload
+(defun turn-on-smart-quotes ()
+  "Unconditionally turn on Smart Quotes mode."
+  (smart-quotes-mode 1))
+
+;;;###autoload
+(defun turn-off-smart-quotes ()
+  "Unconditionally turn off Smart Quotes mode."
+  (smart-quotes-mode -1))
+
+(custom-add-option 'text-mode-hook 'turn-on-smart-quotes)
 
 (provide 'smart-quotes)

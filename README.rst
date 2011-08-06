@@ -13,7 +13,7 @@ Add ``smart-quotes.el`` to your ``load-path`` and the following to your ``.emacs
 
 To turn on smart quotes minor mode in all text mode buffers, use::
 
-    (add-hook 'text-mode-hook #'(lambda () (smart-quotes-mode 1)))
+    (add-hook 'text-mode-hook 'turn-on-smart-quotes)
 
 
 Usage
