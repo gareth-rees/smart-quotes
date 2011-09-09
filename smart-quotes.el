@@ -14,9 +14,10 @@
 ;; your option) any later version.
 
 ;;; Commentary:
-
-;; In Smart Quotes minor mode, the ' and " keys insert left and
-;; right quotation marks according to the context around point.
+;;
+;; Smart Quotes is a minor mode that rebinds the ' and " keys to
+;; insert left and right quotation marks according to the context
+;; before point.
 
 ;;; Code:
 
@@ -59,11 +60,12 @@ otherwise."
 
 ;;;###autoload
 (define-minor-mode smart-quotes-mode
-  "Toggle Smart Quotes mode in the current buffer.
-With argument ARG, turn Smart Quotes mode on iff ARG is positive.
-In Smart Quotes mode, the ' and \" keys insert left quotation
-marks if point is preceded by text matching the option
-`smart-quotes-left-context' and right quotation marks otherwise."
+  "Minor mode that makes the ' and \" keys insert left and right
+quotation marks automatically according to the context before point;
+see `smart-quotes-insert-single' and `smart-quotes-insert-double'.
+With no argument, this command toggles Smart Quotes mode.
+With a prefix argument ARG, turn Smart Quotes minor mode on if ARG
+is positive, otherwise turn it off."
   :lighter (:eval (string ?  (decode-char 'ucs #x201C)
                           (decode-char 'ucs #x201D)))
   :keymap '(("'" . smart-quotes-insert-single)
