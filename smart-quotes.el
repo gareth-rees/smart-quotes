@@ -94,7 +94,7 @@ is positive, otherwise turn it off."
      (while (re-search-forward "['\"]" nil t)
        (let ((single (string= (match-string 0) "'")))
          (replace-match "")
-         (funcall (if single #'smart-quotes-insert-single
-                    #'smart-quotes-insert-double)))))))
+         (if single (smart-quotes-insert-single)
+           (smart-quotes-insert-double)))))))
 
 (provide 'smart-quotes)
