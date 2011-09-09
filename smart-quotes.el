@@ -5,7 +5,6 @@
 
 ;; Author: Gareth Rees <gdr@garethrees.org>
 ;; Created: 2007-10-20
-;; Version: 1.1
 ;; Keywords: abbrev
 
 ;; Smart Quotes mode is free software; you can redistribute it and/or
