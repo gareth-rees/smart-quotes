@@ -37,9 +37,9 @@ use either \\[customize] or the function `smart-quotes-mode'."
   :require 'smart-quotes)
 
 (defcustom smart-quotes-left-context "^\\|\\s-\\|\\s(\\|[‘“]"
-  "Regular expression matching the context in which a left
-quotation mark will be inserted (a right quotation mark will
-be inserted in all other contexts)."
+  "Regular expression matching the context preceding point in
+which a left quotation mark will be inserted; in other
+contexts, a right quotation mark will be inserted."
   :type 'regexp
   :group 'smart-quotes)
 
