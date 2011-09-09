@@ -65,7 +65,7 @@ see `smart-quotes-insert-single' and `smart-quotes-insert-double'.
 With no argument, this command toggles Smart Quotes mode.
 With a prefix argument ARG, turn Smart Quotes minor mode on if ARG
 is positive, otherwise turn it off."
-  :lighter (:eval (string ?  (decode-char 'ucs #x201C)
+  :lighter (:eval (string ? (decode-char 'ucs #x201C)
                           (decode-char 'ucs #x201D)))
   :keymap '(("'" . smart-quotes-insert-single)
             ("\"" . smart-quotes-insert-double)))
