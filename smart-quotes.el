@@ -83,4 +83,18 @@ is positive, otherwise turn it off."
 
 (custom-add-option 'text-mode-hook 'turn-on-smart-quotes)
 
+;;;###autoload
+(defun smart-quotes-smarten ()
+ "Turn quotes into smart quotes in region or buffer."
+ (interactive)
+ (save-excursion
+   (save-restriction
+     (when (use-region-p) (narrow-to-region (region-beginning) (region-end)))
+     (goto-char (point-min))
+     (while (re-search-forward "['\"]" nil t)
+       (let ((single (string= (match-string 0) "'")))
+         (replace-match "")
+         (funcall (if single #'smart-quotes-insert-single
+                    #'smart-quotes-insert-double)))))))
+
 (provide 'smart-quotes)
