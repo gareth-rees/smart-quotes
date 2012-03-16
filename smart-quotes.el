@@ -37,9 +37,9 @@ use either \\[customize] or the function `smart-quotes-mode'."
   :require 'smart-quotes)
 
 (defcustom smart-quotes-left-context "^\\|\\s-\\|\\s(\\|[‘“]"
-  "Regular expression matching the context in which a left
-quotation mark will be inserted (a right quotation mark will
-be inserted in all other contexts)."
+  "Regular expression matching the context preceding point in
+which a left quotation mark will be inserted; in other
+contexts, a right quotation mark will be inserted."
   :type 'regexp
   :group 'smart-quotes)
 
@@ -65,7 +65,7 @@ see `smart-quotes-insert-single' and `smart-quotes-insert-double'.
 With no argument, this command toggles Smart Quotes mode.
 With a prefix argument ARG, turn Smart Quotes minor mode on if ARG
 is positive, otherwise turn it off."
-  :lighter (:eval (string ?  (decode-char 'ucs #x201C)
+  :lighter (:eval (string ? (decode-char 'ucs #x201C)
                           (decode-char 'ucs #x201D)))
   :keymap '(("'" . smart-quotes-insert-single)
             ("\"" . smart-quotes-insert-double)))
