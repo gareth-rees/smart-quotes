@@ -1,7 +1,7 @@
 ;;; smart-quotes.el --- Smart Quotes minor mode for GNU Emacs
 
 ;; Copyright (C) 2007-2011 Gareth Rees
-;; Copyright (C) 2011 Reuben Thomas
+;; Copyright (C) 2011-2013 Reuben Thomas
 
 ;; Author: Gareth Rees <gdr@garethrees.org>
 ;; Created: 2007-10-20
@@ -43,19 +43,42 @@ contexts, a right quotation mark will be inserted."
   :type 'regexp
   :group 'smart-quotes)
 
-(defun smart-quotes-insert-single ()
+(defcustom smart-quotes-reverse-quotes t
+  "If non-nil, reverse a preceding quote instead of inserting a
+quote of the same kind."
+  :type 'boolean
+  :group 'smart-quotes)
+
+(defun smart-quotes-insert-single (&optional noreverse)
   "Insert U+2018 LEFT SINGLE QUOTATION MARK if point is preceded
 by `smart-quotes-left-context'; U+2019 RIGHT SINGLE QUOTATION MARK
-otherwise."
-  (interactive)
-  (ucs-insert (if (looking-back smart-quotes-left-context) #x2018 #x2019)))
+otherwise.  If `smart-quotes-reverse-quotes' is true, and point is
+preceded by a single left or right quote, reverse its direction
+instead of inserting another.  A prefix ARG prevents reversal."
+  (interactive "P")
+  (ucs-insert
+   (or (if (and (not noreverse) smart-quotes-reverse-quotes)
+           (if (= (preceding-char) #x2018)
+               (progn (delete-char -1) #x2019)
+             (if (= (preceding-char) #x2019)
+                 (progn (delete-char -1) #x2018))))
+       (if (looking-back smart-quotes-left-context) #x2018 #x2019))))
 
-(defun smart-quotes-insert-double ()
+(defun smart-quotes-insert-double (&optional noreverse)
   "Insert U+201C LEFT DOUBLE QUOTATION MARK if point is preceded
-by `smart-quotes-left-context'; U+201D RIGHT DOUBLE QUOTATION MARK
-otherwise."
-  (interactive)
-  (ucs-insert (if (looking-back smart-quotes-left-context) #x201C #x201D)))
+by `smart-quotes-left-context'; U+201D RIGHT DOUBLE QUOTATION
+MARK otherwise.  If `smart-quotes-reverse-quotes' is true, and
+point is preceded by a double left or right quote, reverse its
+direction instead of inserting another.  A prefix ARG prevents
+reversal."
+  (interactive "P")
+  (ucs-insert
+   (or (if (and (not noreverse) smart-quotes-reverse-quotes)
+           (if (= (preceding-char) #x201C)
+               (progn (delete-char -1) #x201D)
+             (if (= (preceding-char) #x201D)
+                 (progn (delete-char -1) #x201C))))
+       (if (looking-back smart-quotes-left-context) #x201C #x201D))))
 
 ;;;###autoload
 (define-minor-mode smart-quotes-mode
