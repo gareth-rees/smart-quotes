@@ -120,3 +120,5 @@ is positive, otherwise turn it off."
            (smart-quotes-insert-double)))))))
 
 (provide 'smart-quotes)
+
+;;; smart-quotes.el ends here
