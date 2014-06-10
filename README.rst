@@ -15,6 +15,13 @@ To turn on smart quotes minor mode in all text mode buffers, use::
 
     (add-hook 'text-mode-hook 'turn-on-smart-quotes)
 
+To support spell checkers when using a curly right quote as an apostrophe,
+customize ``ispell-local-dictionary-alist``, adding for example::
+
+ (quote (("british" "[[:alpha:]]" "[^[:alpha:]]" "['’]" t ("-d" "en_GB") nil utf-8)))
+
+This dictionary’s value can then be set as the name of ``ispell-local-dictionary``.
+
 
 Usage
 -----
