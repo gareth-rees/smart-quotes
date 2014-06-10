@@ -56,7 +56,7 @@ otherwise.  If `smart-quotes-reverse-quotes' is true, and point is
 preceded by a single left or right quote, reverse its direction
 instead of inserting another.  A prefix ARG prevents reversal."
   (interactive "P")
-  (ucs-insert
+  (insert-char
    (or (if (and (not noreverse) smart-quotes-reverse-quotes)
            (if (= (preceding-char) #x2018)
                (progn (delete-char -1) #x2019)
@@ -72,7 +72,7 @@ point is preceded by a double left or right quote, reverse its
 direction instead of inserting another.  A prefix ARG prevents
 reversal."
   (interactive "P")
-  (ucs-insert
+  (insert-char
    (or (if (and (not noreverse) smart-quotes-reverse-quotes)
            (if (= (preceding-char) #x201C)
                (progn (delete-char -1) #x201D)
