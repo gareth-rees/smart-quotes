@@ -34,7 +34,7 @@ Setting this variable directly does not take effect;
 use either \\[customize] or the function `smart-quotes-mode'."
   :set 'custom-set-minor-mode
   :initialize 'custom-initialize-default
-  :version "1.2"
+  :version "1.3"
   :type 'boolean
   :group 'smart-quotes
   :require 'smart-quotes)
@@ -89,25 +89,15 @@ reversal."
   "Minor mode that makes the ' and \" keys insert left and right
 quotation marks automatically according to the context before point;
 see `smart-quotes-insert-single' and `smart-quotes-insert-double'.
-With no argument, this command toggles Smart Quotes mode.
-With a prefix argument ARG, turn Smart Quotes minor mode on if ARG
-is positive, otherwise turn it off."
+With a prefix argument ARG, enable the mode if ARG is positive,
+and disable it otherwise.  If called from Lisp, enable the mode
+if ARG is omitted or nil."
   :lighter (:eval (string ? (decode-char 'ucs #x201C)
                           (decode-char 'ucs #x201D)))
   :keymap '(("'" . smart-quotes-insert-single)
             ("\"" . smart-quotes-insert-double)))
 
-;;;###autoload
-(defun turn-on-smart-quotes ()
-  "Unconditionally turn on Smart Quotes mode."
-  (smart-quotes-mode 1))
-
-;;;###autoload
-(defun turn-off-smart-quotes ()
-  "Unconditionally turn off Smart Quotes mode."
-  (smart-quotes-mode -1))
-
-(custom-add-option 'text-mode-hook 'turn-on-smart-quotes)
+(custom-add-option 'text-mode-hook 'smart-quotes-mode)
 
 ;;;###autoload
 (defun smart-quotes-smarten ()
