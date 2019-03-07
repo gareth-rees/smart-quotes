@@ -43,13 +43,13 @@ contexts, a right quotation mark will be inserted."
   :type 'regexp
   :group 'smart-quotes)
 
-(defcustom smart-quotes-reverse-quotes t
-  "If non-nil, reverse a preceding quote instead of inserting a
-quote of the same kind."
+(defcustom smart-quotes-cycle-quotes t
+  "If non-nil, cycle a preceding quote instead of inserting
+another character."
   :type 'boolean
   :group 'smart-quotes)
 
-(defun smart-quotes-insert-single (&optional noreverse)
+(defun smart-quotes-insert-single (&optional nocycle)
   "Insert U+2018 LEFT SINGLE QUOTATION MARK if point is preceded
 by `smart-quotes-left-context'; U+2019 RIGHT SINGLE QUOTATION MARK
 otherwise.  If `smart-quotes-reverse-quotes' is true, and point is
@@ -57,7 +57,7 @@ preceded by a single left or right quote, reverse its direction
 instead of inserting another.  A prefix ARG prevents reversal."
   (interactive "P")
   (insert-char
-   (or (if (and (not noreverse) smart-quotes-reverse-quotes)
+   (or (if (and (not nocycle) smart-quotes-cycle-quotes)
            (if (= (preceding-char) #x2018)
                (progn (delete-char -1) #x2019)
              (if (= (preceding-char) #x2019)
@@ -66,7 +66,7 @@ instead of inserting another.  A prefix ARG prevents reversal."
                  (progn (delete-char -1) #x2018)))))
        (if (looking-back smart-quotes-left-context) #x2018 #x2019))))
 
-(defun smart-quotes-insert-double (&optional noreverse)
+(defun smart-quotes-insert-double (&optional nocycle)
   "Insert U+201C LEFT DOUBLE QUOTATION MARK if point is preceded
 by `smart-quotes-left-context'; U+201D RIGHT DOUBLE QUOTATION
 MARK otherwise.  If `smart-quotes-reverse-quotes' is true, and
@@ -75,7 +75,7 @@ direction instead of inserting another.  A prefix ARG prevents
 reversal."
   (interactive "P")
   (insert-char
-   (or (if (and (not noreverse) smart-quotes-reverse-quotes)
+   (or (if (and (not nocycle) smart-quotes-cycle-quotes)
            (if (= (preceding-char) #x201C)
                (progn (delete-char -1) #x201D)
              (if (= (preceding-char) #x201D)
