@@ -61,7 +61,9 @@ instead of inserting another.  A prefix ARG prevents reversal."
            (if (= (preceding-char) #x2018)
                (progn (delete-char -1) #x2019)
              (if (= (preceding-char) #x2019)
-                 (progn (delete-char -1) #x2018))))
+                 (progn (delete-char -1) #x0027)
+               (if (= (preceding-char) #x0027)
+                 (progn (delete-char -1) #x2018)))))
        (if (looking-back smart-quotes-left-context) #x2018 #x2019))))
 
 (defun smart-quotes-insert-double (&optional noreverse)
@@ -77,7 +79,9 @@ reversal."
            (if (= (preceding-char) #x201C)
                (progn (delete-char -1) #x201D)
              (if (= (preceding-char) #x201D)
-                 (progn (delete-char -1) #x201C))))
+                 (progn (delete-char -1) #x0022)
+               (if (= (preceding-char) #x0022)
+                 (progn (delete-char -1) #x201C)))))
        (if (looking-back smart-quotes-left-context) #x201C #x201D))))
 
 ;;;###autoload
