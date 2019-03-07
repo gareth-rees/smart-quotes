@@ -51,10 +51,11 @@ another character."
 
 (defun smart-quotes-insert-single (&optional nocycle)
   "Insert U+2018 LEFT SINGLE QUOTATION MARK if point is preceded
-by `smart-quotes-left-context'; U+2019 RIGHT SINGLE QUOTATION MARK
-otherwise.  If `smart-quotes-reverse-quotes' is true, and point is
-preceded by a single left or right quote, reverse its direction
-instead of inserting another.  A prefix ARG prevents reversal."
+by `smart-quotes-left-context'; U+2019 RIGHT SINGLE QUOTATION
+MARK otherwise.  If `smart-quotes-cycle-quotes' is true, and
+point is preceded by a single left quote, a single right quote,
+or an APOSTROPHE (U+0027), then cycle around those characters
+instead of inserting anything.  A prefix ARG prevents cycling."
   (interactive "P")
   (insert-char
    (or (if (and (not nocycle) smart-quotes-cycle-quotes)
@@ -69,10 +70,10 @@ instead of inserting another.  A prefix ARG prevents reversal."
 (defun smart-quotes-insert-double (&optional nocycle)
   "Insert U+201C LEFT DOUBLE QUOTATION MARK if point is preceded
 by `smart-quotes-left-context'; U+201D RIGHT DOUBLE QUOTATION
-MARK otherwise.  If `smart-quotes-reverse-quotes' is true, and
-point is preceded by a double left or right quote, reverse its
-direction instead of inserting another.  A prefix ARG prevents
-reversal."
+MARK otherwise.  If `smart-quotes-cycle-quotes' is true, and
+point is preceded by a double left quote, a double right quote,
+or a QUOTATION MARK (U+0022), cycle around those characters
+instead of inserting anything.  A prefix ARG prevents cycling."
   (interactive "P")
   (insert-char
    (or (if (and (not nocycle) smart-quotes-cycle-quotes)
