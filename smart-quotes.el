@@ -62,7 +62,7 @@ instead of inserting another.  A prefix ARG prevents reversal."
                (progn (delete-char -1) #x2019)
              (if (= (preceding-char) #x2019)
                  (progn (delete-char -1) #x2018))))
-       (if (looking-back smart-quotes-left-context) #x2018 #x2019))))
+       (if (looking-back smart-quotes-left-context nil) #x2018 #x2019))))
 
 (defun smart-quotes-insert-double (&optional noreverse)
   "Insert U+201C LEFT DOUBLE QUOTATION MARK if point is preceded
@@ -78,7 +78,7 @@ reversal."
                (progn (delete-char -1) #x201D)
              (if (= (preceding-char) #x201D)
                  (progn (delete-char -1) #x201C))))
-       (if (looking-back smart-quotes-left-context) #x201C #x201D))))
+       (if (looking-back smart-quotes-left-context nil) #x201C #x201D))))
 
 ;;;###autoload
 (define-minor-mode smart-quotes-mode
